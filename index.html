@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velocity Studios | Where Simple Ideas Become Iconic Brands</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" />
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <!-- FontAwesome for Social Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ==========================================================
+       CSS VARIABLES & THEME CONFIGURATION
+       ========================================================== */
+    :root {
+      --font-display: 'Orbitron', sans-serif;
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --cyan: #00f2fe;
+      --magenta: #ff007f;
+      --violet: #8a2be2;
+      --neon-glow: 0 0 25px rgba(0, 242, 254, 0.45);
+      --pink-glow: 0 0 25px rgba(255, 0, 127, 0.45);
+      
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #07090e;
+      --bg-surface: rgba(14, 18, 28, 0.75);
+      --bg-surface-hover: rgba(22, 28, 44, 0.9);
+      --border: rgba(0, 242, 254, 0.18);
+      --border-highlight: rgba(0, 242, 254, 0.6);
+      --text: #f0f4fc;
+      --text-muted: #8e9bb4;
+      --card-gradient: linear-gradient(145deg, rgba(16, 22, 36, 0.8), rgba(8, 11, 19, 0.95));
+      --nav-bg: rgba(7, 9, 14, 0.82);
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f7fc;
+      --bg-surface: rgba(255, 255, 255, 0.85);
+      --bg-surface-hover: rgba(255, 255, 255, 1);
+      --border: rgba(0, 180, 216, 0.25);
+      --border-highlight: rgba(0, 180, 216, 0.8);
+      --text: #0b1120;
+      --text-muted: #52607a;
+      --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 244, 255, 0.8));
+      --nav-bg: rgba(245, 247, 252, 0.88);
+      --neon-glow: 0 0 20px rgba(0, 180, 216, 0.25);
+    }
+
+    /* ==========================================================
+       GLOBAL RESET & BASE STYLES
+       ========================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* Background Cyber Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Mouse Canvas */
+    #cursor-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin-inline: auto;
+    }
+
+    /* Logo Styling */
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35), var(--neon-glow);
+      padding: 4px;
+      transition: var(--transition);
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* ==========================================================
+       NAVIGATION BAR
+       ========================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo {
+      width: 44px;
+      height: 44px;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--cyan);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--cyan);
+      box-shadow: var(--neon-glow);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--cyan);
+      box-shadow: var(--neon-glow);
+      transform: rotate(20deg);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 28px;
+    }
+
+    /* ==========================================================
+       BUTTONS & ACCENTS
+       ========================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #030712;
+      box-shadow: var(--neon-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.7);
+      color: #000;
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--magenta);
+      box-shadow: var(--pink-glow);
+      transform: translateY(-3px);
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #000;
+      font-weight: 800;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-whatsapp:hover {
+      background: #20ba59;
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(37, 211, 102, 0.7);
+    }
+
+    /* ==========================================================
+       HERO SECTION
+       ========================================================== */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    .hero-glow-blob {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.15), transparent 70%);
+      top: 20%;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    .hero-glow-blob-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 127, 0.12), transparent 70%);
+      bottom: 10%;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .hero-logo-wrap {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+
+    .hero-logo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed var(--cyan);
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid var(--border-highlight);
+      border-radius: 50px;
+      color: var(--cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--magenta) 75%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-slogan {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-muted);
+      margin-bottom: 38px;
+      font-weight: 400;
+      max-width: 650px;
+      margin-inline: auto;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================
+       STATISTICS & LIVE COUNTERS
+       ========================================================== */
+    .stats-section {
+      padding: 70px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px 20px;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card:hover {
+      border-color: var(--cyan);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ==========================================================
+       SECTION HEADERS
+       ========================================================== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 65px;
+      position: relative;
+    }
+
+    .section-sub {
+      font-family: var(--font-display);
+      color: var(--magenta);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    /* ==========================================================
+       SERVICES SECTION
+       ========================================================== */
+    .services-section {
+      padding: 100px 0;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--card-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    .service-card:hover {
+      border-color: var(--cyan);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-8px);
+    }
+
+    .service-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .service-icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      transition: var(--transition);
+    }
+
+    .service-icon-box .material-symbols-outlined {
+      font-size: 32px;
+    }
+
+    .service-card:hover .service-icon-box {
+      background: var(--cyan);
+      color: #030712;
+      box-shadow: var(--neon-glow);
+    }
+
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .sub-services-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .sub-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .sub-item .material-symbols-outlined {
+      font-size: 18px;
+      color: var(--magenta);
+    }
+
+    /* ==========================================================
+       TOOLS SECTION
+       ========================================================== */
+    .tools-section {
+      padding: 90px 0;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tool-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-gradient);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: var(--radius-md);
+      width: 135px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .tool-item:hover {
+      border-color: var(--cyan);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-6px) scale(1.05);
+    }
+
+    .tool-avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #ffffff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .tool-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .tool-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--text);
+    }
+
+    /* ==========================================================
+       PORTFOLIO PLACEHOLDER SECTION
+       ========================================================== */
+    .portfolio-section {
+      padding: 100px 0;
+    }
+
+    .portfolio-vault-card {
+      background: var(--card-gradient);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 70px 30px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vault-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 0, 127, 0.12);
+      border: 1px solid var(--magenta);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: var(--magenta);
+    }
+
+    .vault-icon .material-symbols-outlined {
+      font-size: 42px;
+    }
+
+    .vault-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .vault-desc {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 24px;
+      font-size: 0.95rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid var(--cyan);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    /* ==========================================================
+       CONTACT & SOCIAL MEDIA
+       ========================================================== */
+    .contact-section {
+      padding: 100px 0 80px;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      background: var(--card-gradient);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 50px 40px;
+    }
+
+    .contact-info-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .contact-info-desc {
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    .contact-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-channel-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .contact-channel-item:hover {
+      border-color: var(--cyan);
+      transform: translateX(6px);
+    }
+
+    .channel-icon {
+      font-size: 24px;
+      color: var(--cyan);
+    }
+
+    .channel-text span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .channel-text strong {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .social-links-title {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+
+    .social-buttons-grid {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .social-btn.fb:hover { color: #1877f2; border-color: #1877f2; box-shadow: 0 0 15px rgba(24, 119, 242, 0.4); }
+    .social-btn.ig:hover { color: #e4405f; border-color: #e4405f; box-shadow: 0 0 15px rgba(228, 64, 95, 0.4); }
+    .social-btn.wa:hover { color: #25d366; border-color: #25d366; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+    .social-btn.mail:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: var(--neon-glow); }
+
+    /* ==========================================================
+       FOOTER & BACK TO TOP
+       ========================================================== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--card-gradient);
+      border: 1px solid var(--border-highlight);
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 90;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      box-shadow: var(--neon-glow);
+      transform: translateY(-4px);
+    }
+
+    /* ==========================================================
+       SCROLL REVEAL ANIMATIONS
+       ========================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================
+       RESPONSIVE DESIGN
+       ========================================================== */
+    @media (max-width: 900px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 30px 0;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-150%);
+        transition: transform 0.4s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="brand-link">
+        <div class="logo-container nav-logo">
+          <img src="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" alt="Velocity Studios Logo" />
+        </div>
+        <span class="brand-title">Velocity</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#tools" class="nav-link">Tools</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="hero-section">
+    <div class="hero-glow-blob"></div>
+    <div class="hero-glow-blob-2"></div>
+    <div class="container hero-content">
+      <div class="logo-container hero-logo-wrap reveal">
+        <img src="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" alt="Velocity Studios Official Logo" />
+      </div>
+
+      <div class="hero-badge reveal">
+        <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Velocity Studios
+      </div>
+
+      <h1 class="hero-title reveal">
+        Crafting <span class="text-gradient">Next-Gen</span> Creative Experiences
+      </h1>
+
+      <p class="hero-slogan reveal">
+        Where Simple Ideas Become Iconic Brands.
+      </p>
+
+      <div class="hero-cta-group reveal">
+        <a href="https://wa.me/94712068238" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+        <a href="#services" class="btn btn-secondary">
+          <span class="material-symbols-outlined">explore</span> Explore Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE COUNTING / STATS SECTION -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <span class="stat-number" data-target="150">0</span>
+          <span class="stat-label">Projects Completed</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-number" data-target="80">0</span>
+          <span class="stat-label">Happy Clients</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-number" data-target="2400">0</span>
+          <span class="stat-label">Hours Edited</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-number" data-target="100">0</span>
+          <span class="stat-label">Satisfaction %</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-sub">Capabilities</span>
+        <h2 class="section-title">What I Do</h2>
+      </div>
+
+      <div class="services-grid">
+        <!-- 1. Video Editing -->
+        <div class="service-card reveal">
+          <div class="service-top">
+            <div class="service-icon-box">
+              <span class="material-symbols-outlined">movie_edit</span>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--text-muted);">arrow_outward</span>
+          </div>
+          <div>
+            <h3 class="service-title">Video Editing</h3>
+            <ul class="sub-services-list">
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> YouTube & Reels Editing</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Cinematic Color Grading</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Commercial & Promo Ads</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Graphic Designing -->
+        <div class="service-card reveal">
+          <div class="service-top">
+            <div class="service-icon-box">
+              <span class="material-symbols-outlined">brush</span>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--text-muted);">arrow_outward</span>
+          </div>
+          <div>
+            <h3 class="service-title">Graphic Designing</h3>
+            <ul class="sub-services-list">
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Logo & Brand Identity</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Social Media Post Design</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Posters, Banners & Thumbnails</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. Photography -->
+        <div class="service-card reveal">
+          <div class="service-top">
+            <div class="service-icon-box">
+              <span class="material-symbols-outlined">photo_camera</span>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--text-muted);">arrow_outward</span>
+          </div>
+          <div>
+            <h3 class="service-title">Photography</h3>
+            <ul class="sub-services-list">
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Portrait Shoots</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Product Photography</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Event Coverage</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4. Videography -->
+        <div class="service-card reveal">
+          <div class="service-top">
+            <div class="service-icon-box">
+              <span class="material-symbols-outlined">videocam</span>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--text-muted);">arrow_outward</span>
+          </div>
+          <div>
+            <h3 class="service-title">Videography</h3>
+            <ul class="sub-services-list">
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Music Videos</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Brand Commercials</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Event Aftermovies</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 5. Photo Editing -->
+        <div class="service-card reveal">
+          <div class="service-top">
+            <div class="service-icon-box">
+              <span class="material-symbols-outlined">auto_fix_high</span>
+            </div>
+            <span class="material-symbols-outlined" style="color: var(--text-muted);">arrow_outward</span>
+          </div>
+          <div>
+            <h3 class="service-title">Photo Editing</h3>
+            <ul class="sub-services-list">
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> High-End Retouching</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Background Manipulation</li>
+              <li class="sub-item"><span class="material-symbols-outlined">check_circle</span> Aesthetic Color Styling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS SECTION -->
+  <section id="tools" class="tools-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-sub">Tech Stack</span>
+        <h2 class="section-title">Tools I Master</h2>
+      </div>
+
+      <div class="tools-grid">
+        <!-- DaVinci Resolve -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/davinci-resolve.svg" alt="DaVinci Resolve" />
+          </div>
+          <span class="tool-name">DaVinci Resolve</span>
+        </div>
+
+        <!-- Premiere Pro -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg" alt="Premiere Pro" />
+          </div>
+          <span class="tool-name">Premiere Pro</span>
+        </div>
+
+        <!-- After Effects -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" alt="After Effects" />
+          </div>
+          <span class="tool-name">After Effects</span>
+        </div>
+
+        <!-- Photoshop -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Adobe Photoshop" />
+          </div>
+          <span class="tool-name">Photoshop</span>
+        </div>
+
+        <!-- Illustrator -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator" />
+          </div>
+          <span class="tool-name">Illustrator</span>
+        </div>
+
+        <!-- Canva -->
+        <div class="tool-item reveal">
+          <div class="tool-avatar">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="Canva" />
+          </div>
+          <span class="tool-name">Canva</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO PLACEHOLDER SECTION -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-sub">Showcase</span>
+        <h2 class="section-title">Selected Works</h2>
+      </div>
+
+      <div class="portfolio-vault-card reveal">
+        <div class="vault-icon">
+          <span class="material-symbols-outlined">lock_clock</span>
+        </div>
+        <h3 class="vault-title">Creative Vault Locked</h3>
+        <p class="vault-desc">
+          We are polishing iconic project showcases, showreels, and visual designs for the next major release.
+        </p>
+        <div class="status-badge">
+          <span class="status-dot"></span> Releasing in Next Update
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & SOCIAL MEDIA SECTION -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="contact-wrapper reveal">
+        <!-- Left: Quick Direct Contact -->
+        <div>
+          <h2 class="contact-info-title">Let’s Build Something Iconic</h2>
+          <p class="contact-info-desc">
+            Have a project in mind or need top-tier creative assets? Reach out now and let’s turn your vision into reality.
+          </p>
+
+          <div class="contact-channels">
+            <a href="https://wa.me/94712068238" target="_blank" rel="noopener noreferrer" class="contact-channel-item">
+              <i class="fa-brands fa-whatsapp channel-icon" style="color: #25d366;"></i>
+              <div class="channel-text">
+                <span>Direct WhatsApp</span>
+                <strong>+94 71 206 8238</strong>
+              </div>
+            </a>
+
+            <a href="mailto:velocitystudios.vs@gmail.com" class="contact-channel-item">
+              <span class="material-symbols-outlined channel-icon">mail</span>
+              <div class="channel-text">
+                <span>Official Email</span>
+                <strong>velocitystudios.vs@gmail.com</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Social Network Grid & WhatsApp CTA -->
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 class="social-links-title">Connect on Socials</h4>
+            <div class="social-buttons-grid">
+              <a href="https://www.facebook.com/profile.php?id=61591747652602" target="_blank" rel="noopener noreferrer" class="social-btn fb" title="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://www.instagram.com/_velocity_studio_?igsh=MWx5NGJzbjZ2MmxiMQ==" target="_blank" rel="noopener noreferrer" class="social-btn ig" title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://whatsapp.com/channel/0029Vb8W4STChq6PLjfEY91I" target="_blank" rel="noopener noreferrer" class="social-btn wa" title="WhatsApp Channel">
+                <i class="fa-solid fa-bullhorn"></i>
+              </a>
+              <a href="mailto:velocitystudios.vs@gmail.com" class="social-btn mail" title="Email Velocity Studios">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <a href="https://wa.me/94712068238" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width: 100%; justify-content: center; padding: 16px;">
+              <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Contact on WhatsApp (+94 71 206 8238)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 <strong>Velocity Studios</strong>. All Rights Reserved. Where Simple Ideas Become Iconic Brands.</p>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button id="back-to-top" class="back-to-top" title="Scroll to Top" aria-label="Scroll to Top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <!-- ==========================================================
+       JAVASCRIPT LOGIC
+       ========================================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* --------------------------------------------------------
+         1. THEME SWITCHER (Dark / Light Mode)
+         -------------------------------------------------------- */
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const html = document.documentElement;
+
+      const savedTheme = localStorage.getItem("velocity_theme") || "dark";
+      html.setAttribute("data-theme", savedTheme);
+      updateThemeIcon(savedTheme);
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = html.getAttribute("data-theme");
+        const nextTheme = currentTheme === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("velocity_theme", nextTheme);
+        updateThemeIcon(nextTheme);
+      });
+
+      function updateThemeIcon(theme) {
+        themeIcon.textContent = theme === "dark" ? "light_mode" : "dark_mode";
+      }
+
+      /* --------------------------------------------------------
+         2. MOBILE NAVBAR TOGGLE
+         -------------------------------------------------------- */
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const navLinks = document.getElementById("nav-links");
+
+      mobileBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+
+      navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+        });
+      });
+
+      /* --------------------------------------------------------
+         3. SCROLL REVEAL (Ease In View Animations)
+         -------------------------------------------------------- */
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px"
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+
+      /* --------------------------------------------------------
+         4. DYNAMIC NUMBER COUNTERS
+         -------------------------------------------------------- */
+      const statNumbers = document.querySelectorAll(".stat-number");
+      let counted = false;
+
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !counted) {
+            counted = true;
+            statNumbers.forEach(counter => {
+              const target = +counter.getAttribute("data-target");
+              const duration = 1800; // ms
+              const stepTime = 20;
+              const steps = duration / stepTime;
+              const increment = target / steps;
+              let current = 0;
+
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  counter.textContent = target + (target === 100 ? "%" : "+");
+                  clearInterval(timer);
+                } else {
+                  counter.textContent = Math.floor(current);
+                }
+              }, stepTime);
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      const statsSection = document.querySelector(".stats-section");
+      if (statsSection) statsObserver.observe(statsSection);
+
+      /* --------------------------------------------------------
+         5. SCROLL TO TOP BUTTON
+         -------------------------------------------------------- */
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.add("show");
+        } else {
+          backToTopBtn.classList.remove("show");
+        }
+      });
+
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      /* --------------------------------------------------------
+         6. INTERACTIVE MOUSE PARTICLE & DROP TRAIL (Desktop Only)
+         -------------------------------------------------------- */
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isLowSpec = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+
+      // Only enable canvas effects for high-performance desktop cursors
+      if (!isTouchDevice && !isLowSpec) {
+        const canvas = document.getElementById("cursor-canvas");
+        const ctx = canvas.getContext("2d");
+
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+
+        window.addEventListener("resize", () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        let mouse = { x: width / 2, y: height / 2 };
+
+        window.addEventListener("mousemove", (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+
+          // Spawn neon trail drops on movement
+          for (let i = 0; i < 2; i++) {
+            particles.push({
+              x: mouse.x,
+              y: mouse.y,
+              vx: (Math.random() - 0.5) * 1.5,
+              vy: Math.random() * 2 + 1,
+              radius: Math.random() * 3.5 + 1.5,
+              alpha: 1,
+              color: Math.random() > 0.5 ? "0, 242, 254" : "255, 0, 127"
+            });
+          }
+        });
+
+        function animateCursor() {
+          ctx.clearRect(0, 0, width, height);
+
+          // Draw main cursor halo
+          ctx.beginPath();
+          ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(0, 242, 254, 0.7)";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Render & update falling neon drops
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.alpha -= 0.025;
+
+            if (p.alpha <= 0) {
+              particles.splice(i, 1);
+              i--;
+              continue;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = `rgba(${p.color}, 0.8)`;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+
+          requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+      } else {
+        // Remove canvas entirely for mobile & low-end performance
+        const canvas = document.getElementById("cursor-canvas");
+        if (canvas) canvas.remove();
+      }
+    });
+  </script>
+</body>
+</html>
