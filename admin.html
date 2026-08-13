@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velocity Studios | Admin Panel</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" />
+
+  <!-- Google Fonts: Roboto & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    /* ==========================================================================
+       MATERIAL DESIGN 3 - BLUE THEME TOKENS
+       ========================================================================== */
+    :root {
+      --md-sys-color-primary: #0061a4;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #d1e4ff;
+      --md-sys-color-on-primary-container: #001d36;
+      --md-sys-color-secondary: #535f70;
+      --md-sys-color-on-secondary: #ffffff;
+      --md-sys-color-secondary-container: #d7e3f7;
+      --md-sys-color-on-secondary-container: #101c2b;
+      --md-sys-color-error: #ba1a1a;
+      --md-sys-color-error-container: #ffdad6;
+      --md-sys-color-on-error-container: #410002;
+      --md-sys-color-background: #fdfcff;
+      --md-sys-color-on-background: #1a1c1e;
+      --md-sys-color-surface: #fdfcff;
+      --md-sys-color-on-surface: #1a1c1e;
+      --md-sys-color-surface-variant: #dfe2eb;
+      --md-sys-color-on-surface-variant: #43474e;
+      --md-sys-color-outline: #73777f;
+      --md-sys-color-outline-variant: #c3c7d0;
+      --md-sys-color-surface-container: #edf0f7;
+      --md-sys-color-surface-container-high: #e7ebf2;
+
+      --md-shape-corner-xs: 4px;
+      --md-shape-corner-sm: 8px;
+      --md-shape-corner-md: 12px;
+      --md-shape-corner-lg: 16px;
+      --md-shape-corner-xl: 28px;
+      --md-shape-corner-full: 9999px;
+
+      --elevation-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+      --elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+      --elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Top App Bar */
+    .app-bar {
+      background-color: var(--md-sys-color-surface-container);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-circle {
+      width: 44px;
+      height: 44px;
+      background: #ffffff;
+      border-radius: var(--md-shape-corner-full);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--elevation-1);
+    }
+
+    .brand-logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--md-sys-color-primary);
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--md-sys-color-secondary);
+      font-weight: 500;
+    }
+
+    .auth-status-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--md-shape-corner-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    /* Layout Container */
+    .main-container {
+      width: min(1200px, 94%);
+      margin: 30px auto 0;
+    }
+
+    /* Actions Bar */
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-title-box h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .dashboard-title-box p {
+      font-size: 0.9rem;
+      color: var(--md-sys-color-secondary);
+    }
+
+    /* Material 3 Buttons */
+    .m3-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--md-shape-corner-full);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .m3-btn-primary {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      box-shadow: var(--elevation-1);
+    }
+
+    .m3-btn-primary:hover {
+      box-shadow: var(--elevation-2);
+      filter: brightness(1.08);
+    }
+
+    .m3-btn-tonal {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .m3-btn-tonal:hover {
+      filter: brightness(0.96);
+    }
+
+    .m3-btn-outlined {
+      background-color: transparent;
+      color: var(--md-sys-color-primary);
+      border: 1px solid var(--md-sys-color-outline);
+    }
+
+    .m3-btn-outlined:hover {
+      background-color: rgba(0, 97, 164, 0.05);
+    }
+
+    .m3-btn-danger {
+      background-color: var(--md-sys-color-error);
+      color: #ffffff;
+    }
+
+    .m3-btn-danger:hover {
+      filter: brightness(1.1);
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background-color: var(--md-sys-color-surface-container);
+      border-radius: var(--md-shape-corner-lg);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--elevation-1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--elevation-2);
+    }
+
+    .project-media-banner {
+      width: 100%;
+      height: 200px;
+      background-color: var(--md-sys-color-surface-variant);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-media-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-badge-count {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: var(--md-shape-corner-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+
+    .tools-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: var(--md-sys-color-surface);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--md-sys-color-secondary);
+    }
+
+    .tool-badge img {
+      width: 14px;
+      height: 14px;
+    }
+
+    .card-actions {
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+      padding-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    /* Modal / Dialog */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-surface {
+      background-color: var(--md-sys-color-surface);
+      width: min(640px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: var(--md-shape-corner-xl);
+      padding: 28px;
+      box-shadow: var(--elevation-3);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-backdrop.active .modal-surface {
+      transform: scale(1);
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--md-shape-corner-sm);
+      border: 1px solid var(--md-sys-color-outline);
+      background: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+    }
+
+    /* Tools Selector Chips */
+    .tools-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .tool-checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-md);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      background: var(--md-sys-color-surface-container);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .tool-checkbox-item input {
+      display: none;
+    }
+
+    .tool-checkbox-item.checked {
+      background-color: var(--md-sys-color-primary-container);
+      border-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .tool-checkbox-item img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    /* Image Upload & Previews */
+    .image-drop-area {
+      border: 2px dashed var(--md-sys-color-outline-variant);
+      border-radius: var(--md-shape-corner-md);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--md-sys-color-surface-container);
+      transition: border-color 0.2s ease;
+    }
+
+    .image-drop-area:hover {
+      border-color: var(--md-sys-color-primary);
+    }
+
+    .preview-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .preview-item {
+      width: 90px;
+      height: 90px;
+      border-radius: var(--md-shape-corner-sm);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .preview-remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-shape-corner-lg);
+      border: 1px dashed var(--md-sys-color-outline-variant);
+    }
+
+    .empty-state .material-symbols-outlined {
+      font-size: 56px;
+      color: var(--md-sys-color-secondary);
+      margin-bottom: 12px;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--md-sys-color-on-surface);
+      color: var(--md-sys-color-surface);
+      padding: 12px 24px;
+      border-radius: var(--md-shape-corner-full);
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: var(--elevation-3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Loader */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--md-sys-color-primary-container);
+      border-top-color: var(--md-sys-color-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading State -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div id="loadingText" style="font-weight: 600; color: var(--md-sys-color-primary);">Connecting to GitHub...</div>
+  </div>
+
+  <!-- Top App Bar -->
+  <header class="app-bar">
+    <div class="brand-section">
+      <div class="brand-logo-circle">
+        <img src="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" alt="Velocity Studios" />
+      </div>
+      <div class="brand-text">
+        <h1>Velocity Studios</h1>
+        <span>Admin Dashboard &bull; GitHub Engine</span>
+      </div>
+    </div>
+
+    <div class="auth-status-wrap">
+      <div id="authStatusChip" class="chip-badge">
+        <span class="material-symbols-outlined" style="font-size: 16px;">key</span>
+        <span id="authStatusText">No Token</span>
+      </div>
+      <button id="configTokenBtn" class="m3-btn m3-btn-tonal" title="Setup / Change GitHub PAT">
+        <span class="material-symbols-outlined">settings</span>
+        Token
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard -->
+  <main class="main-container">
+    <div class="dashboard-header">
+      <div class="dashboard-title-box">
+        <h2>Portfolio Projects</h2>
+        <p>Manage and upload your creative assets directly into your repository.</p>
+      </div>
+      <button id="openAddModalBtn" class="m3-btn m3-btn-primary">
+        <span class="material-symbols-outlined">add</span>
+        Add Project
+      </button>
+    </div>
+
+    <!-- Projects Grid Container -->
+    <div id="projectsGrid" class="projects-grid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <span class="material-symbols-outlined">inventory_2</span>
+      <h3 style="font-size: 1.2rem; margin-bottom: 6px;">No Projects Found</h3>
+      <p style="color: var(--md-sys-color-secondary); font-size: 0.9rem; margin-bottom: 18px;">
+        Start by adding your first project or sync your GitHub Personal Access Token.
+      </p>
+      <button class="m3-btn m3-btn-primary" onclick="openProjectModal()">
+        <span class="material-symbols-outlined">add</span> Add Project Now
+      </button>
+    </div>
+  </main>
+
+  <!-- GitHub Token Setup Modal -->
+  <div id="tokenModal" class="modal-backdrop">
+    <div class="modal-surface">
+      <h3 class="modal-title">
+        <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">shield</span>
+        GitHub Access Token
+      </h3>
+      <p style="font-size: 0.88rem; color: var(--md-sys-color-secondary); margin-bottom: 18px;">
+        Provide a <strong>GitHub Personal Access Token (classic or fine-grained)</strong> with <code>repo</code> write permissions for <code>velocitystudios-vs/portfolio</code>. It will remain saved in your local storage until you delete it.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="patInput">Personal Access Token (PAT)</label>
+        <input type="password" id="patInput" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      </div>
+
+      <div class="modal-actions">
+        <button id="clearTokenBtn" class="m3-btn m3-btn-outlined" style="color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);">
+          Delete Token
+        </button>
+        <button id="closeTokenModalBtn" class="m3-btn m3-btn-tonal">Cancel</button>
+        <button id="saveTokenBtn" class="m3-btn m3-btn-primary">Save & Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Project Modal -->
+  <div id="projectModal" class="modal-backdrop">
+    <div class="modal-surface">
+      <h3 class="modal-title">
+        <span class="material-symbols-outlined" id="modalIcon" style="color: var(--md-sys-color-primary);">post_add</span>
+        <span id="modalHeading">Add New Project</span>
+      </h3>
+
+      <form id="projectForm">
+        <input type="hidden" id="editProjectId" />
+
+        <!-- 1. Project Title -->
+        <div class="form-group">
+          <label class="form-label" for="projectTitle">1. Project Title *</label>
+          <input type="text" id="projectTitle" class="form-control" placeholder="e.g. Cyberpunk Cinematic Reel" required />
+        </div>
+
+        <!-- 2. Description -->
+        <div class="form-group">
+          <label class="form-label" for="projectDesc">2. Project Description *</label>
+          <textarea id="projectDesc" class="form-control" rows="4" placeholder="Describe the creative brief, editing style, and deliverables..." required></textarea>
+        </div>
+
+        <!-- 3. Used Tools -->
+        <div class="form-group">
+          <label class="form-label">3. Used Tools (Select all that apply)</label>
+          <div class="tools-selector-grid" id="toolsSelector">
+            <!-- Tool Item: DaVinci -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="DaVinci Resolve" data-icon="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/davinci-resolve.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/davinci-resolve.svg" alt="" />
+              DaVinci
+            </label>
+
+            <!-- Tool Item: Premiere Pro -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="Premiere Pro" data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg" alt="" />
+              Premiere
+            </label>
+
+            <!-- Tool Item: After Effects -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="After Effects" data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" alt="" />
+              After Effects
+            </label>
+
+            <!-- Tool Item: Photoshop -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="Adobe Photoshop" data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="" />
+              Photoshop
+            </label>
+
+            <!-- Tool Item: Illustrator -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="Adobe Illustrator" data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="" />
+              Illustrator
+            </label>
+
+            <!-- Tool Item: Canva -->
+            <label class="tool-checkbox-item">
+              <input type="checkbox" value="Canva" data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="" />
+              Canva
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Images Upload (Max 3) -->
+        <div class="form-group">
+          <label class="form-label">4. Project Images (Max 3 Full Quality Images)</label>
+          <div class="image-drop-area" id="dropArea">
+            <span class="material-symbols-outlined" style="font-size: 32px; color: var(--md-sys-color-primary);">cloud_upload</span>
+            <p style="font-size: 0.88rem; font-weight: 500; margin-top: 4px;">Click or Drop images here</p>
+            <span style="font-size: 0.75rem; color: var(--md-sys-color-secondary);">PNG, JPG, WEBP accepted (Max 3)</span>
+            <input type="file" id="imageFileInput" accept="image/*" multiple style="display: none;" />
+          </div>
+
+          <div class="preview-container" id="previewContainer"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="closeProjectModalBtn" class="m3-btn m3-btn-tonal">Cancel</button>
+          <button type="submit" id="submitProjectBtn" class="m3-btn m3-btn-primary">
+            <span class="material-symbols-outlined">cloud_done</span> Submit Project
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toast">
+    <span class="material-symbols-outlined" id="toastIcon">info</span>
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC (GitHub REST API Engine)
+       ========================================================================== -->
+  <script>
+    const REPO_OWNER = "velocitystudios-vs";
+    const REPO_NAME = "portfolio";
+    const DB_PATH = "projects/p.json";
+
+    let state = {
+      token: localStorage.getItem("velocity_admin_pat") || "",
+      projects: [],
+      pJsonSha: null,
+      selectedFiles: [], // Array of { file, base64, url }
+      existingImages: [], // For edit mode
+      defaultBranch: "main"
+    };
+
+    // DOM Elements
+    const projectsGrid = document.getElementById("projectsGrid");
+    const emptyState = document.getElementById("emptyState");
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const loadingText = document.getElementById("loadingText");
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
+    const authStatusText = document.getElementById("authStatusText");
+
+    const tokenModal = document.getElementById("tokenModal");
+    const projectModal = document.getElementById("projectModal");
+    const patInput = document.getElementById("patInput");
+    const dropArea = document.getElementById("dropArea");
+    const imageFileInput = document.getElementById("imageFileInput");
+    const previewContainer = document.getElementById("previewContainer");
+    const projectForm = document.getElementById("projectForm");
+
+    // Initialize
+    window.addEventListener("DOMContentLoaded", () => {
+      initToolChips();
+      checkAuthAndLoad();
+    });
+
+    /* -------------------------------------------------------------
+       1. AUTHENTICATION & PAT MANAGEMENT
+       ------------------------------------------------------------- */
+    function checkAuthAndLoad() {
+      if (state.token) {
+        authStatusText.textContent = "Connected";
+        patInput.value = state.token;
+        loadProjectsFromGitHub();
+      } else {
+        authStatusText.textContent = "No Token";
+        openTokenModal();
+      }
+    }
+
+    document.getElementById("configTokenBtn").addEventListener("click", openTokenModal);
+    document.getElementById("closeTokenModalBtn").addEventListener("click", closeTokenModal);
+
+    document.getElementById("saveTokenBtn").addEventListener("click", () => {
+      const val = patInput.value.trim();
+      if (!val) {
+        showToast("Please enter a valid GitHub token.");
+        return;
+      }
+      state.token = val;
+      localStorage.setItem("velocity_admin_pat", val);
+      closeTokenModal();
+      showToast("Token saved securely in LocalStorage!");
+      checkAuthAndLoad();
+    });
+
+    document.getElementById("clearTokenBtn").addEventListener("click", () => {
+      if (confirm("Are you sure you want to remove the GitHub token from this browser?")) {
+        localStorage.removeItem("velocity_admin_pat");
+        state.token = "";
+        patInput.value = "";
+        authStatusText.textContent = "No Token";
+        state.projects = [];
+        renderProjects();
+        closeTokenModal();
+        showToast("Token removed.");
+      }
+    });
+
+    function openTokenModal() { tokenModal.classList.add("active"); }
+    function closeTokenModal() { tokenModal.classList.remove("active"); }
+
+    /* -------------------------------------------------------------
+       2. GITHUB REST API WRAPPERS
+       ------------------------------------------------------------- */
+    async function githubApi(endpoint, options = {}) {
+      if (!state.token) throw new Error("GitHub Token is not configured.");
+
+      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}${endpoint}`;
+      const defaultHeaders = {
+        "Authorization": `Bearer ${state.token}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+      };
+
+      const response = await fetch(url, {
+        ...options,
+        headers: { ...defaultHeaders, ...options.headers }
+      });
+
+      if (!response.ok && response.status !== 404) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || `GitHub API error: ${response.status}`);
+      }
+
+      return response;
+    }
+
+    // Load Database (projects/p.json)
+    async function loadProjectsFromGitHub() {
+      setLoading(true, "Fetching projects from repository...");
+      try {
+        // 1. Detect default branch
+        const repoRes = await githubApi("");
+        if (repoRes.ok) {
+          const repoData = await repoRes.json();
+          state.defaultBranch = repoData.default_branch || "main";
+        }
+
+        // 2. Fetch projects/p.json
+        const res = await githubApi(`/contents/${DB_PATH}`);
+        if (res.status === 404) {
+          state.projects = [];
+          state.pJsonSha = null;
+        } else {
+          const data = await res.json();
+          state.pJsonSha = data.sha;
+          const decoded = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ""))));
+          state.projects = JSON.parse(decoded) || [];
+        }
+        renderProjects();
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || "Failed to load projects from GitHub.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // Commit File (Upload / Update)
+    async function commitGithubFile(filePath, base64Content, message, existingSha = null) {
+      const payload = {
+        message: message,
+        content: base64Content,
+        branch: state.defaultBranch
+      };
+      if (existingSha) payload.sha = existingSha;
+
+      const res = await githubApi(`/contents/${filePath}`, {
+        method: "PUT",
+        body: JSON.stringify(payload)
+      });
+      return await res.json();
+    }
+
+    // Delete File from Repo
+    async function deleteGithubFile(filePath, sha, message) {
+      const payload = {
+        message: message,
+        sha: sha,
+        branch: state.defaultBranch
+      };
+      await githubApi(`/contents/${filePath}`, {
+        method: "DELETE",
+        body: JSON.stringify(payload)
+      });
+    }
+
+    /* -------------------------------------------------------------
+       3. ADD / EDIT & IMAGE UPLOAD LOGIC
+       ------------------------------------------------------------- */
+    function initToolChips() {
+      document.querySelectorAll(".tool-checkbox-item").forEach(item => {
+        const checkbox = item.querySelector("input");
+        item.addEventListener("click", () => {
+          setTimeout(() => {
+            if (checkbox.checked) {
+              item.classList.add("checked");
+            } else {
+              item.classList.remove("checked");
+            }
+          }, 10);
+        });
+      });
+    }
+
+    document.getElementById("openAddModalBtn").addEventListener("click", () => openProjectModal());
+    document.getElementById("closeProjectModalBtn").addEventListener("click", closeProjectModal);
+
+    function openProjectModal(projectToEdit = null) {
+      if (!state.token) {
+        showToast("Please setup your GitHub token first.");
+        openTokenModal();
+        return;
+      }
+
+      projectForm.reset();
+      state.selectedFiles = [];
+      state.existingImages = [];
+      previewContainer.innerHTML = "";
+
+      // Reset Tool Chips
+      document.querySelectorAll(".tool-checkbox-item").forEach(i => {
+        i.classList.remove("checked");
+        i.querySelector("input").checked = false;
+      });
+
+      if (projectToEdit) {
+        document.getElementById("modalHeading").textContent = "Edit Project";
+        document.getElementById("modalIcon").textContent = "edit_note";
+        document.getElementById("editProjectId").value = projectToEdit.id;
+        document.getElementById("projectTitle").value = projectToEdit.title;
+        document.getElementById("projectDesc").value = projectToEdit.description;
+
+        // Pre-check tools
+        if (projectToEdit.tools && Array.isArray(projectToEdit.tools)) {
+          document.querySelectorAll(".tool-checkbox-item").forEach(item => {
+            const input = item.querySelector("input");
+            if (projectToEdit.tools.some(t => t.name === input.value)) {
+              input.checked = true;
+              item.classList.add("checked");
+            }
+          });
+        }
+
+        // Load existing images
+        if (projectToEdit.images && Array.isArray(projectToEdit.images)) {
+          state.existingImages = [...projectToEdit.images];
+          renderPreviews();
+        }
+      } else {
+        document.getElementById("modalHeading").textContent = "Add New Project";
+        document.getElementById("modalIcon").textContent = "post_add";
+        document.getElementById("editProjectId").value = "";
+      }
+
+      projectModal.classList.add("active");
+    }
+
+    function closeProjectModal() {
+      projectModal.classList.remove("active");
+    }
+
+    // Drag & Drop Image Handlers
+    dropArea.addEventListener("click", () => imageFileInput.click());
+    dropArea.addEventListener("dragover", (e) => { e.preventDefault(); dropArea.style.borderColor = "var(--md-sys-color-primary)"; });
+    dropArea.addEventListener("dragleave", () => { dropArea.style.borderColor = "var(--md-sys-color-outline-variant)"; });
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.style.borderColor = "var(--md-sys-color-outline-variant)";
+      handleFiles(e.dataTransfer.files);
+    });
+
+    imageFileInput.addEventListener("change", (e) => handleFiles(e.target.files));
+
+    async function handleFiles(files) {
+      const remainingSlots = 3 - (state.existingImages.length + state.selectedFiles.length);
+      if (remainingSlots <= 0) {
+        showToast("Maximum 3 images allowed per project.");
+        return;
+      }
+
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      for (const file of filesToProcess) {
+        if (!file.type.startsWith("image/")) continue;
+        const base64 = await fileToBase64(file);
+        state.selectedFiles.push({
+          file: file,
+          name: file.name,
+          base64: base64,
+          dataUrl: URL.createObjectURL(file)
+        });
+      }
+      renderPreviews();
+    }
+
+    function renderPreviews() {
+      previewContainer.innerHTML = "";
+
+      // Existing Images (From Repo)
+      state.existingImages.forEach((imgUrl, index) => {
+        const div = document.createElement("div");
+        div.className = "preview-item";
+        div.innerHTML = `
+          <img src="${imgUrl}" alt="Preview" />
+          <button type="button" class="preview-remove-btn" onclick="removeExistingImage(${index})">&times;</button>
+        `;
+        previewContainer.appendChild(div);
+      });
+
+      // Newly Selected Files
+      state.selectedFiles.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "preview-item";
+        div.innerHTML = `
+          <img src="${item.dataUrl}" alt="Preview" />
+          <button type="button" class="preview-remove-btn" onclick="removeSelectedFile(${index})">&times;</button>
+        `;
+        previewContainer.appendChild(div);
+      });
+    }
+
+    window.removeExistingImage = function(index) {
+      state.existingImages.splice(index, 1);
+      renderPreviews();
+    };
+
+    window.removeSelectedFile = function(index) {
+      state.selectedFiles.splice(index, 1);
+      renderPreviews();
+    };
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    /* -------------------------------------------------------------
+       4. SUBMIT / SAVE PROJECT TO REPOSITORY
+       ------------------------------------------------------------- */
+    projectForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById("editProjectId").value;
+      const title = document.getElementById("projectTitle").value.trim();
+      const desc = document.getElementById("projectDesc").value.trim();
+
+      if (!title || !desc) {
+        showToast("Please fill in required fields.");
+        return;
+      }
+
+      if (state.existingImages.length === 0 && state.selectedFiles.length === 0) {
+        showToast("Please upload at least 1 image for this project.");
+        return;
+      }
+
+      // Collect selected tools
+      const selectedTools = [];
+      document.querySelectorAll(".tool-checkbox-item input:checked").forEach(input => {
+        selectedTools.push({
+          name: input.value,
+          icon: input.getAttribute("data-icon")
+        });
+      });
+
+      closeProjectModal();
+      setLoading(true, "Uploading high-resolution images to GitHub...");
+
+      try {
+        const slug = title.toLowerCase().replace(/[^a-z0-9]/g, "_").replace(/_+/g, "_");
+        const dirName = `project_${slug}_images`;
+        const uploadedImageUrls = [...state.existingImages];
+
+        // Upload new images to directory: projects/project_[title]_images/
+        for (let i = 0; i < state.selectedFiles.length; i++) {
+          const fileObj = state.selectedFiles[i];
+          const ext = fileObj.name.split(".").pop() || "png";
+          const fileName = `img_${Date.now()}_${i + 1}.${ext}`;
+          const filePath = `projects/${dirName}/${fileName}`;
+
+          setLoading(true, `Uploading image (${i + 1}/${state.selectedFiles.length})...`);
+          await commitGithubFile(filePath, fileObj.base64, `Upload full-quality asset: ${fileName}`);
+
+          // Build raw.githubusercontent.com URL
+          const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${state.defaultBranch}/${filePath}`;
+          uploadedImageUrls.push(rawUrl);
+        }
+
+        // Prepare project object
+        const projectPayload = {
+          id: editId || `proj_${Date.now()}`,
+          title: title,
+          slug: slug,
+          description: desc,
+          tools: selectedTools,
+          images: uploadedImageUrls,
+          imageDir: `projects/${dirName}`,
+          updatedAt: new Date().toISOString()
+        };
+
+        setLoading(true, "Updating database (projects/p.json)...");
+
+        // Update local state
+        if (editId) {
+          const idx = state.projects.findIndex(p => p.id === editId);
+          if (idx !== -1) state.projects[idx] = projectPayload;
+        } else {
+          state.projects.unshift(projectPayload);
+        }
+
+        // Commit updated projects/p.json
+        const jsonString = JSON.stringify(state.projects, null, 2);
+        const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+        const pJsonCommit = await commitGithubFile(
+          DB_PATH,
+          encodedContent,
+          `Update projects registry: ${title}`,
+          state.pJsonSha
+        );
+
+        state.pJsonSha = pJsonCommit.content.sha;
+        renderProjects();
+        showToast("Project successfully published to repository!");
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || "Failed to commit changes to GitHub.");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    /* -------------------------------------------------------------
+       5. DELETE PROJECT (JSON & REPO ASSETS CLEANUP)
+       ------------------------------------------------------------- */
+    window.deleteProject = async function(projectId) {
+      const project = state.projects.find(p => p.id === projectId);
+      if (!project) return;
+
+      if (!confirm(`Are you sure you want to delete "${project.title}"?\nThis will remove the project from p.json and erase associated uploaded images from the repository.`)) {
+        return;
+      }
+
+      setLoading(true, "Removing project assets from GitHub...");
+
+      try {
+        // 1. Remove images inside directory if present
+        if (project.imageDir) {
+          const dirRes = await githubApi(`/contents/${project.imageDir}`);
+          if (dirRes.ok) {
+            const files = await dirRes.json();
+            if (Array.isArray(files)) {
+              for (const file of files) {
+                await deleteGithubFile(file.path, file.sha, `Clean asset: ${file.name}`);
+              }
+            }
+          }
+        }
+
+        // 2. Update projects/p.json
+        state.projects = state.projects.filter(p => p.id !== projectId);
+        const jsonString = JSON.stringify(state.projects, null, 2);
+        const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+        const pJsonCommit = await commitGithubFile(
+          DB_PATH,
+          encodedContent,
+          `Delete project: ${project.title}`,
+          state.pJsonSha
+        );
+
+        state.pJsonSha = pJsonCommit.content.sha;
+        renderProjects();
+        showToast("Project and all its assets deleted successfully.");
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || "Failed to delete project completely.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    window.editProject = function(projectId) {
+      const project = state.projects.find(p => p.id === projectId);
+      if (project) openProjectModal(project);
+    };
+
+    /* -------------------------------------------------------------
+       6. RENDER DASHBOARD UI
+       ------------------------------------------------------------- */
+    function renderProjects() {
+      if (!state.projects || state.projects.length === 0) {
+        projectsGrid.innerHTML = "";
+        emptyState.style.display = "block";
+        return;
+      }
+
+      emptyState.style.display = "none";
+      projectsGrid.innerHTML = state.projects.map(p => {
+        const coverImage = (p.images && p.images.length > 0)
+          ? p.images[0]
+          : "https://placehold.co/600x400/0061a4/ffffff?text=No+Image";
+
+        const imageCount = p.images ? p.images.length : 0;
+
+        const toolsHtml = (p.tools && Array.isArray(p.tools))
+          ? p.tools.map(t => `
+              <span class="tool-badge">
+                <img src="${t.icon}" alt="" /> ${t.name}
+              </span>
+            `).join("")
+          : "";
+
+        return `
+          <div class="project-card">
+            <div class="project-media-banner">
+              <img src="${coverImage}" alt="${p.title}" loading="lazy" />
+              <div class="project-badge-count">
+                <span class="material-symbols-outlined" style="font-size: 14px;">image</span>
+                ${imageCount} image${imageCount !== 1 ? 's' : ''}
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">${escapeHtml(p.title)}</h3>
+              <p class="project-desc">${escapeHtml(p.description)}</p>
+
+              <div class="tools-tag-list">
+                ${toolsHtml}
+              </div>
+
+              <div class="card-actions">
+                <button class="m3-btn m3-btn-outlined" style="padding: 6px 14px; font-size: 0.82rem;" onclick="editProject('${p.id}')">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">edit</span> Edit
+                </button>
+                <button class="m3-btn m3-btn-danger" style="padding: 6px 14px; font-size: 0.82rem;" onclick="deleteProject('${p.id}')">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    /* Helpers */
+    function setLoading(show, text = "") {
+      if (show) {
+        loadingText.textContent = text;
+        loadingOverlay.classList.add("active");
+      } else {
+        loadingOverlay.classList.remove("active");
+      }
+    }
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3500);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
