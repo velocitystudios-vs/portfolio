@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "proj_1786663509562",
+    "title": "Profit Road",
+    "slug": "profit_road",
+    "description": "wasi paara",
+    "tools": [
+      {
+        "name": "DaVinci Resolve",
+        "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/davinci-resolve.svg"
+      },
+      {
+        "name": "Adobe Photoshop",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg"
+      }
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/velocitystudios-vs/portfolio/main/projects/project_profit_road_images/img_1786663505879_1.jpg"
+    ],
+    "imageDir": "projects/project_profit_road_images",
+    "updatedAt": "2026-08-13T23:25:09.562Z"
+  }
+]
