@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "proj_1786671469514",
+    "title": "Logo Design For \"Coffee Corner\"",
+    "slug": "logo_design_for_coffee_corner_",
+    "description": "A Premium Reveal By Velocity Studio\n\n​Designed for \"Coffee Corner\"\n\n🚀​Unique identities leave lasting impressions. Thank you for trusting Velocity Studio🚀\n\n​Ready to build yours ! 🫵 💥Let’s create💥\n\n📬 ​DM for Logo Design | Branding",
+    "tools": [
+      {
+        "name": "Adobe Photoshop",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg"
+      }
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/velocitystudios-vs/portfolio/main/projects/project_logo_design_for_coffee_corner__images/img_1786671464711_1.jpg"
+    ],
+    "imageDir": "projects/project_logo_design_for_coffee_corner__images",
+    "updatedAt": "2026-08-14T01:37:49.514Z"
+  }
+]
