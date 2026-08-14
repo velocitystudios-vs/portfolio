@@ -8,7 +8,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" />
 
-  <!-- Montserrat (Headings, Slogans, Badges, Buttons) & Inter (Clean UI & Body) -->
+  <!-- Montserrat & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -47,7 +47,7 @@
       --red-slider: #ff003c;
     }
 
-    /* Accurate, High-Contrast, Balanced Light Palette */
+    /* Balanced Light Palette */
     [data-theme="light"] {
       --bg: #f4f6fb;
       --bg-surface: rgba(255, 255, 255, 0.92);
@@ -63,6 +63,112 @@
       --magenta: #d90466;
       --yellow-star: #d97706;
       --red-slider: #e11d48;
+    }
+
+    /* ==========================================================
+       INITIAL LOADING SCREEN
+       ========================================================== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: #000000;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s ease;
+      pointer-events: all;
+    }
+    #preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-blob-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .preloader-gradient-blob {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00f2fe, #7928ca, #ff007f);
+      filter: blur(28px);
+      animation: pulseBlob 2.4s infinite ease-in-out;
+      opacity: 0.85;
+    }
+    .preloader-inner-orb {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(5, 6, 10, 0.92);
+      border: 1.5px solid rgba(0, 242, 254, 0.6);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .preloader-inner-orb img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .preloader-text-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    .preloader-title {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+    }
+    .preloader-loading-bar {
+      width: 140px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 8px;
+    }
+    .preloader-loading-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 40%;
+      background: linear-gradient(90deg, #00f2fe, #ff007f);
+      border-radius: 10px;
+      animation: loadBarAnim 1.6s infinite ease-in-out;
+    }
+    @keyframes pulseBlob {
+      0%, 100% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+      50% { transform: scale(1.25) rotate(180deg); opacity: 1; }
+    }
+    @keyframes loadBarAnim {
+      0% { left: -40%; }
+      100% { left: 100%; }
     }
 
     /* ==========================================================
@@ -101,7 +207,7 @@
       perspective: 1500px;
     }
 
-    /* Vivid Background Animation */
+    /* Background Animation */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -190,7 +296,7 @@
       opacity: 0;
     }
 
-    /* Desktop Inner Sections: Fit viewport without header overlap */
+    /* Desktop Inner Sections */
     .inner-section {
       width: 100%;
       height: 100vh;
@@ -369,7 +475,7 @@
     .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(37, 211, 102, 0.65); }
 
     /* ==========================================================
-       HERO SECTION (Pure White Slogan & Professional Fonts)
+       HERO SECTION (Pure White Slogan)
        ========================================================== */
     .hero-content {
       position: relative;
@@ -404,7 +510,6 @@
       text-transform: uppercase;
       margin-bottom: 14px;
     }
-    /* Slogan Fully White */
     .hero-slogan-main {
       font-family: var(--font-heading);
       font-size: clamp(2rem, 4.5vw, 3.8rem);
@@ -1058,7 +1163,6 @@
         aspect-ratio: 1 / 1.18;
         margin: 0 auto 8px auto;
       }
-      /* Removed image badge in mobile version */
       .about-image-badge {
         display: none !important;
       }
@@ -1128,6 +1232,20 @@
   </style>
 </head>
 <body>
+
+  <!-- INITIAL LOADING SCREEN (Blank black screen + glowing gradient blob + loading text) -->
+  <div id="preloader">
+    <div class="preloader-blob-wrapper">
+      <div class="preloader-gradient-blob"></div>
+      <div class="preloader-inner-orb">
+        <img src="https://i.ibb.co/jkcDQJHZ/Official-Logo.png" alt="Loading Logo" />
+      </div>
+    </div>
+    <div class="preloader-text-wrap">
+      <span class="preloader-title">VELOCITY STUDIOS</span>
+      <div class="preloader-loading-bar"></div>
+    </div>
+  </div>
 
   <!-- Vivid Background & Grid -->
   <div class="bg-grid"></div>
@@ -1541,7 +1659,7 @@
         
         currentPageId = targetId;
 
-        // Reset scroll position to top whenever navigating to any section
+        // Reset scroll position to top
         const targetInner = targetPage.querySelector('.inner-section');
         if (targetInner) {
           targetInner.scrollTop = 0;
@@ -1870,9 +1988,40 @@
     animateParticles();
 
     /* ==========================================================
-       INIT
+       ASSET LOADING DETECTION & PRELOADER FADE-OUT
        ========================================================== */
-    loadProjects();
+    async function initSite() {
+      const minDisplayTime = new Promise(resolve => setTimeout(resolve, 800));
+      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+      const windowLoaded = new Promise(resolve => {
+        if (document.readyState === 'complete') resolve();
+        else window.addEventListener('load', resolve, { once: true });
+      });
+      const projectsLoaded = loadProjects();
+
+      // Wait for core assets & minimum display time
+      await Promise.allSettled([minDisplayTime, fontsReady, windowLoaded, projectsLoaded]);
+
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 750);
+      }
+    }
+
+    // Safety fallback in case network delays exceed 3.5s
+    setTimeout(() => {
+      const preloader = document.getElementById('preloader');
+      if (preloader && !preloader.classList.contains('loaded')) {
+        preloader.classList.add('loaded');
+        setTimeout(() => { preloader.style.display = 'none'; }, 750);
+      }
+    }, 3500);
+
+    // Launch Preloader & Asset Orchestrator
+    initSite();
   </script>
 </body>
 </html>
