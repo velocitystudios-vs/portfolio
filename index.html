@@ -8,10 +8,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" />
 
-  <!-- Professional Typography (Montserrat, Inter, Lato, Playfair Editorial Serif, Courier Prime Mono) -->
+  <!-- Montserrat (Headings, Slogans, Badges, Buttons) & Inter (Clean UI & Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -21,17 +21,7 @@
        ========================================================== */
     :root {
       --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-heading: 'Montserrat', sans-serif;
-      --font-serif: 'Playfair Display', serif;
-      --font-body-alt: 'Lato', sans-serif;
-      --font-mono: 'Courier Prime', monospace;
-      
-      --cyan: #00f2fe;
-      --cyan-glow: rgba(0, 242, 254, 0.45);
-      --magenta: #ff007f;
-      --violet: #7928ca;
-      --yellow-star: #ffb703;
-      --red-slider: #ff003c;
+      --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       
       --radius-sm: 10px;
       --radius-md: 18px;
@@ -50,28 +40,48 @@
       --text-muted: #94a3b8;
       --card-gradient: linear-gradient(145deg, rgba(20, 26, 42, 0.92), rgba(9, 12, 20, 0.98));
       --nav-bg: rgba(7, 8, 13, 0.94);
+      --cyan: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.45);
+      --magenta: #ff007f;
+      --yellow-star: #ffb703;
+      --red-slider: #ff003c;
     }
 
+    /* Accurate, High-Contrast, Balanced Light Palette */
     [data-theme="light"] {
-      --bg: #f8fafc;
+      --bg: #f4f6fb;
       --bg-surface: rgba(255, 255, 255, 0.92);
       --bg-card: rgba(255, 255, 255, 0.96);
-      --border: rgba(0, 150, 214, 0.22);
-      --border-highlight: rgba(0, 150, 214, 0.75);
-      --text: #090d16;
-      --text-muted: #475569;
-      --card-gradient: linear-gradient(145deg, #ffffff, #f1f5f9);
-      --nav-bg: rgba(248, 250, 252, 0.94);
-      --cyan-glow: rgba(0, 150, 214, 0.28);
+      --border: rgba(0, 136, 204, 0.22);
+      --border-highlight: rgba(0, 136, 204, 0.7);
+      --text: #0a1124;
+      --text-muted: #4b586e;
+      --card-gradient: linear-gradient(145deg, #ffffff, #edf2f9);
+      --nav-bg: rgba(244, 246, 251, 0.94);
+      --cyan: #0088cc;
+      --cyan-glow: rgba(0, 136, 204, 0.32);
+      --magenta: #d90466;
+      --yellow-star: #d97706;
+      --red-slider: #e11d48;
     }
 
     /* ==========================================================
-       GLOBAL RESETS & PAGE STRUCTURE
+       GLOBAL RESETS, PROTECTION & PAGE STRUCTURE
        ========================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    *:focus, *:active {
+      outline: none;
     }
 
     html, body {
@@ -115,7 +125,7 @@
     }
     .drop-1 { width: 550px; height: 550px; background: var(--cyan); top: -12%; left: -12%; animation-delay: 0s; }
     .drop-2 { width: 480px; height: 480px; background: var(--magenta); bottom: -12%; right: -12%; animation-delay: 3s; }
-    .drop-3 { width: 380px; height: 380px; background: var(--violet); top: 40%; left: 60%; animation-delay: 6s; }
+    .drop-3 { width: 380px; height: 380px; background: #7928ca; top: 40%; left: 60%; animation-delay: 6s; }
 
     @keyframes floatDrop {
       0%, 100% { transform: translate(0, 0) scale(1); }
@@ -128,7 +138,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, var(--cyan), var(--violet), var(--magenta));
+      background: linear-gradient(135deg, var(--cyan), #7928ca, var(--magenta));
       transform: scaleX(0);
       transform-origin: right;
       z-index: 9998;
@@ -301,7 +311,7 @@
     .menu-toggle-btn.open span:nth-child(2) { opacity: 0; }
     .menu-toggle-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Page Navigation Floating Arrows (Universal) */
+    /* Page Navigation Floating Arrows */
     .desktop-nav-arrows {
       position: fixed;
       bottom: 25px;
@@ -343,7 +353,6 @@
       border: none;
       text-align: center;
       white-space: nowrap;
-      -webkit-tap-highlight-color: transparent;
       letter-spacing: 0.3px;
     }
     .btn-highlight {
@@ -360,7 +369,7 @@
     .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(37, 211, 102, 0.65); }
 
     /* ==========================================================
-       HERO SECTION
+       HERO SECTION (Pure White Slogan & Professional Fonts)
        ========================================================== */
     .hero-content {
       position: relative;
@@ -390,11 +399,12 @@
       color: var(--cyan);
       font-size: 0.8rem;
       font-weight: 700;
-      font-family: var(--font-mono);
+      font-family: var(--font-heading);
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 14px;
     }
+    /* Slogan Fully White */
     .hero-slogan-main {
       font-family: var(--font-heading);
       font-size: clamp(2rem, 4.5vw, 3.8rem);
@@ -405,15 +415,8 @@
       margin: 0 auto;
       color: #ffffff;
     }
-    .hero-slogan-main .italic-accent {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 600;
-    }
-    .text-gradient {
-      background: linear-gradient(135deg, var(--cyan) 0%, #00b4d8 50%, var(--magenta) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    [data-theme="light"] .hero-slogan-main {
+      color: var(--text);
     }
     .hero-subtext {
       margin-top: 14px;
@@ -421,7 +424,7 @@
       color: var(--text-muted);
       max-width: 620px;
       font-weight: 400;
-      font-family: var(--font-body-alt);
+      font-family: var(--font-main);
     }
     .hero-btn-group {
       display: flex; align-items: center; justify-content: center;
@@ -442,14 +445,13 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      user-select: none;
       touch-action: none;
     }
     .slide-track-text {
       position: absolute;
       left: 74px;
       font-weight: 700;
-      font-family: var(--font-mono);
+      font-family: var(--font-heading);
       color: var(--text-muted);
       pointer-events: none;
       letter-spacing: 1px;
@@ -514,10 +516,10 @@
       text-align: left;
     }
     .about-image-badge strong { display: block; font-size: 0.98rem; font-family: var(--font-heading); color: var(--cyan); }
-    .about-image-badge span { font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); }
+    .about-image-badge span { font-size: 0.8rem; font-family: var(--font-main); color: var(--text-muted); }
 
     .about-bio h2 { font-family: var(--font-heading); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; }
-    .about-role-sub { font-size: 0.96rem; font-family: var(--font-body-alt); color: var(--magenta); font-weight: 700; margin-bottom: 14px; display: block; }
+    .about-role-sub { font-size: 0.96rem; font-family: var(--font-main); color: var(--magenta); font-weight: 700; margin-bottom: 14px; display: block; }
     
     .about-bio-card {
       background: var(--card-gradient);
@@ -548,7 +550,7 @@
       font-size: 19px;
     }
     .timeline-content h4 { font-size: 0.92rem; font-weight: 700; font-family: var(--font-heading); color: var(--text); }
-    .timeline-content p { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-body-alt); }
+    .timeline-content p { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-main); }
 
     .google-search-action-btn {
       margin-top: 18px;
@@ -560,7 +562,7 @@
        ========================================================== */
     .section-header { text-align: center; margin-bottom: 28px; }
     .section-tag {
-      font-family: var(--font-mono);
+      font-family: var(--font-heading);
       color: var(--cyan);
       font-size: 0.8rem;
       font-weight: 700;
@@ -603,7 +605,7 @@
     }
     .tool-logo-box img { width: 100%; height: 100%; object-fit: contain; }
     .tool-hero-card h3 { font-size: 1.2rem; font-weight: 700; font-family: var(--font-heading); margin-bottom: 6px; }
-    .tool-hero-card p { font-size: 0.86rem; color: var(--text-muted); font-family: var(--font-body-alt); }
+    .tool-hero-card p { font-size: 0.86rem; color: var(--text-muted); font-family: var(--font-main); }
 
     .services-grid {
       display: grid;
@@ -635,7 +637,7 @@
     .service-card:hover .service-icon-wrap { background: var(--cyan); color: #000; }
     .service-card h3 { font-size: 1.18rem; font-weight: 700; font-family: var(--font-heading); margin-bottom: 10px; }
     .sub-services { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .sub-item { display: flex; align-items: center; gap: 9px; font-size: 0.88rem; color: var(--text-muted); }
+    .sub-item { display: flex; align-items: center; gap: 9px; font-size: 0.88rem; color: var(--text-muted); font-family: var(--font-main); }
     .sub-item .material-symbols-outlined { font-size: 17px; color: var(--magenta); }
 
     /* ==========================================================
@@ -709,7 +711,7 @@
       border-radius: 30px;
       font-size: 0.75rem;
       font-weight: 700;
-      font-family: var(--font-mono);
+      font-family: var(--font-heading);
       display: flex; align-items: center; gap: 4px;
       z-index: 2;
       backdrop-filter: blur(8px);
@@ -803,7 +805,7 @@
     }
     .channel-item:hover { border-color: var(--cyan); transform: translateX(5px); }
     .channel-item i, .channel-item .material-symbols-outlined { font-size: 22px; color: var(--cyan); }
-    .channel-item div span { display: block; font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+    .channel-item div span { display: block; font-size: 0.76rem; font-family: var(--font-heading); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
     .channel-item div strong { font-size: 0.94rem; font-family: var(--font-main); color: var(--text); }
 
     .contact-right-actions { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; text-align: center; }
@@ -824,7 +826,6 @@
     .social-icon-btn.wa:hover { color: #25d366; border-color: #25d366; }
     .social-icon-btn.mail:hover { color: var(--cyan); border-color: var(--cyan); }
 
-    /* Single Row WhatsApp Button */
     .whatsapp-full-cta {
       width: 100%;
       max-width: 400px;
@@ -840,7 +841,7 @@
       text-overflow: ellipsis;
     }
 
-    .footer { padding: 20px 0 0 0; text-align: center; color: var(--text-muted); font-size: 0.82rem; font-family: var(--font-body-alt); }
+    .footer { padding: 20px 0 0 0; text-align: center; color: var(--text-muted); font-size: 0.82rem; font-family: var(--font-main); }
 
     /* ==========================================================
        PROJECT MODAL & IMAGE CARDS GALLERY
@@ -894,7 +895,7 @@
     .project-tool-pill {
       display: inline-flex; align-items: center; gap: 5px;
       font-size: 0.76rem; font-weight: 600;
-      font-family: var(--font-mono);
+      font-family: var(--font-heading);
       padding: 5px 12px;
       border-radius: 6px;
       background: rgba(0, 242, 254, 0.08);
@@ -992,7 +993,7 @@
     }
 
     /* ==========================================================
-       MOBILE RESPONSIVENESS & FULL OVERHAUL FIXES
+       MOBILE RESPONSIVENESS
        ========================================================== */
     @media (max-width: 900px) {
       .menu-toggle-btn { display: flex; }
@@ -1009,7 +1010,6 @@
       }
       .nav-links.open { transform: translateY(0); }
 
-      /* Mobile Navigation Floating Arrows (Small, Sleek in Bottom Right) */
       .desktop-nav-arrows {
         display: flex;
         bottom: 18px;
@@ -1021,11 +1021,8 @@
         height: 38px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
       }
-      .nav-arrow span {
-        font-size: 18px;
-      }
+      .nav-arrow span { font-size: 18px; }
 
-      /* Mobile Full Scroll Support for Content Pages */
       .page {
         height: 100vh;
         height: 100dvh;
@@ -1037,11 +1034,10 @@
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         padding-top: 85px;
-        padding-bottom: 110px; /* Ample room so bottom elements & buttons are fully reachable */
+        padding-bottom: 110px;
         display: block;
       }
 
-      /* Hero Page stays centered without scrolling */
       #hero .inner-section {
         display: flex;
         flex-direction: column;
@@ -1051,33 +1047,28 @@
         overflow-y: hidden;
       }
 
-      /* About Me Page Mobile Beautification */
+      /* About Me Page Mobile */
       .about-grid {
         grid-template-columns: 1fr;
         gap: 24px;
         text-align: center;
       }
       .about-image-card {
-        max-width: 250px;
-        aspect-ratio: 1 / 1.15;
+        max-width: 260px;
+        aspect-ratio: 1 / 1.18;
         margin: 0 auto 8px auto;
       }
+      /* Removed image badge in mobile version */
       .about-image-badge {
-        text-align: center;
-        padding: 8px 12px;
+        display: none !important;
       }
       .about-bio {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
-      .about-bio h2 {
-        font-size: 1.65rem;
-      }
-      .about-role-sub {
-        font-size: 0.88rem;
-        margin-bottom: 12px;
-      }
+      .about-bio h2 { font-size: 1.65rem; }
+      .about-role-sub { font-size: 0.88rem; margin-bottom: 12px; }
       .about-bio-card {
         text-align: left;
         padding: 14px 16px;
@@ -1098,7 +1089,6 @@
         margin-bottom: 15px;
       }
 
-      /* Tools & Services Mobile Scroll Clearance */
       .tools-highlight-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -1110,12 +1100,10 @@
         padding-bottom: 20px;
       }
 
-      /* Portfolio Mobile */
       .project-card { flex: 0 0 220px; width: 220px; height: 220px; }
       .project-mobile-title { display: block; }
       #portfolio-tooltip { display: none !important; }
 
-      /* Contact Mobile */
       .contact-card-container {
         grid-template-columns: 1fr;
         padding: 26px 18px;
@@ -1176,7 +1164,7 @@
     </div>
   </header>
 
-  <!-- Floating Navigation Arrows (Visible on PC and Mobile Bottom Right) -->
+  <!-- Floating Navigation Arrows -->
   <div class="desktop-nav-arrows">
     <button class="nav-arrow" id="prevPageBtn" aria-label="Previous Page"><span class="material-symbols-outlined">arrow_back</span></button>
     <button class="nav-arrow" id="nextPageBtn" aria-label="Next Page"><span class="material-symbols-outlined">arrow_forward</span></button>
@@ -1184,7 +1172,7 @@
 
   <div class="pages-container" id="pages-container">
 
-    <!-- HERO PAGE -->
+    <!-- HERO PAGE (Fully White Slogan) -->
     <section id="hero" class="page active">
       <div class="inner-section">
         <div class="container hero-content">
@@ -1198,7 +1186,7 @@
               <span class="material-symbols-outlined" style="font-size: 15px;">bolt</span> Velocity Studios <span class="material-symbols-outlined" style="font-size: 15px;">bolt</span>
             </div>
             <h1 class="hero-slogan-main">
-              Where Simple Ideas Become <span class="italic-accent text-gradient">Iconic Brands.</span>
+              Where Simple Ideas Become Iconic Brands.
             </h1>
             <p class="hero-subtext">
               High-impact commercial photography, cinematic videography, and cutting-edge visual branding tailored to elevate your business.
@@ -1228,7 +1216,7 @@
         <div class="container">
           <div class="about-grid">
             <div class="about-image-card">
-              <img src="https://i.ibb.co/gFmTfvz9/20251121-011526.jpg" alt="Iran Vivek Salochana" />
+              <img src="https://i.ibb.co/qY66ZtvN/port.jpg" alt="Iran Vivek Salochana" />
               <div class="about-image-badge">
                 <strong>Iran Vivek Salochana</strong>
                 <span>Founder & Creative Director</span>
@@ -1267,7 +1255,6 @@
                 </div>
               </div>
 
-              <!-- Interactive Google Search Button -->
               <button class="btn btn-highlight google-search-action-btn" id="googleSearchBtn" onclick="handleGoogleSearch(this)">
                 <i class="fa-brands fa-google"></i> <span id="googleBtnText">Search Google About Iran</span>
               </button>
@@ -1423,7 +1410,7 @@
               </div>
             </div>
             <div class="contact-right-actions">
-              <h4 style="font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted);">
+              <h4 style="font-size: 0.85rem; font-family: var(--font-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted);">
                 Follow My Channels
               </h4>
               <div class="social-btn-row">
@@ -1440,7 +1427,6 @@
                   <i class="fa-solid fa-envelope"></i>
                 </a>
               </div>
-              <!-- Strict Single-Row Button -->
               <a href="https://wa.me/94712068238" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp whatsapp-full-cta">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem; flex-shrink: 0;"></i>
                 <span>Contact on WhatsApp (+94 71 206 8238)</span>
@@ -1478,6 +1464,12 @@
 
   <script>
     /* ==========================================================
+       DISABLE RIGHT-CLICK & DRAG HIGHLIGHT
+       ========================================================== */
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    /* ==========================================================
        HAPTIC FEEDBACK ENGINE
        ========================================================== */
     function triggerHaptic(pattern) {
@@ -1511,7 +1503,7 @@
     });
 
     /* ==========================================================
-       PAGE TRANSITION SYSTEM
+       PAGE TRANSITION SYSTEM WITH AUTOMATIC SCROLL RESET
        ========================================================== */
     const pages = document.querySelectorAll('.page');
     const overlay = document.getElementById('wipe-overlay');
@@ -1549,8 +1541,22 @@
         
         currentPageId = targetId;
 
+        // Reset scroll position to top whenever navigating to any section
+        const targetInner = targetPage.querySelector('.inner-section');
+        if (targetInner) {
+          targetInner.scrollTop = 0;
+          targetInner.scrollLeft = 0;
+        }
+
+        // Reset slider or track if applicable
         if (targetId === 'hero') {
           document.getElementById('slideThumb').style.transform = 'translateX(0)';
+        }
+        if (targetId === 'portfolio') {
+          const track = document.getElementById('portfolioTrack');
+          const slider = document.getElementById('portfolioSlider');
+          if (track) track.scrollLeft = 0;
+          if (slider) slider.value = 0;
         }
 
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -1585,7 +1591,7 @@
     updateNavArrows();
 
     /* ==========================================================
-       INTERACTIVE GOOGLE SEARCH BUTTON (TOUCH TEXT CHANGE)
+       INTERACTIVE GOOGLE SEARCH BUTTON
        ========================================================== */
     function handleGoogleSearch(btn) {
       triggerHaptic([15, 30]);
