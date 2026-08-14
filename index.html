@@ -207,6 +207,24 @@
       perspective: 1500px;
     }
 
+    /* Material Symbols Ligature Rendering Consistency */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+
     /* Background Animation */
     .bg-grid {
       position: fixed;
@@ -475,7 +493,7 @@
     .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(37, 211, 102, 0.65); }
 
     /* ==========================================================
-       HERO SECTION (Pure White Slogan)
+       HERO SECTION
        ========================================================== */
     .hero-content {
       position: relative;
@@ -1233,7 +1251,7 @@
 </head>
 <body>
 
-  <!-- INITIAL LOADING SCREEN (Blank black screen + glowing gradient blob + loading text) -->
+  <!-- INITIAL LOADING SCREEN -->
   <div id="preloader">
     <div class="preloader-blob-wrapper">
       <div class="preloader-gradient-blob"></div>
@@ -1588,10 +1606,16 @@
     document.addEventListener('dragstart', (e) => e.preventDefault());
 
     /* ==========================================================
-       HAPTIC FEEDBACK ENGINE
+       HAPTIC FEEDBACK ENGINE (SAFE GUARDED)
        ========================================================== */
     function triggerHaptic(pattern) {
-      if (navigator.vibrate) navigator.vibrate(pattern);
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try {
+          navigator.vibrate(pattern);
+        } catch (err) {
+          /* Ignore non-permitted or unsupported browser cases */
+        }
+      }
     }
 
     /* ==========================================================
@@ -1823,9 +1847,11 @@
         if (!res.ok) throw new Error('Failed to load projects');
         const projects = await res.json();
         renderPortfolio(projects);
+        return projects;
       } catch (err) {
         console.error("Portfolio Load Error:", err);
         portfolioTrack.innerHTML = `<p style="color: var(--text-muted); padding: 40px; text-align: center; width: 100%;">No projects available or failed to load.</p>`;
+        return [];
       }
     }
 
@@ -1988,19 +2014,93 @@
     animateParticles();
 
     /* ==========================================================
-       ASSET LOADING DETECTION & PRELOADER FADE-OUT
+       DEEP ASSET PRELOADER (FONTS, ICONS, IMAGES & VIBRATION READY)
        ========================================================== */
+    function preloadSingleImage(url) {
+      if (!url) return Promise.resolve();
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        if (img.decode) {
+          img.decode().then(resolve).catch(() => {
+            if (img.complete) resolve();
+            else {
+              img.onload = resolve;
+              img.onerror = resolve;
+            }
+          });
+        } else {
+          if (img.complete) resolve();
+          else {
+            img.onload = resolve;
+            img.onerror = resolve;
+          }
+        }
+      });
+    }
+
+    async function preloadAllFontsAndIcons() {
+      if (!document.fonts) return;
+      try {
+        const fontChecks = [
+          document.fonts.load('400 16px "Inter"'),
+          document.fonts.load('600 16px "Inter"'),
+          document.fonts.load('700 24px "Montserrat"'),
+          document.fonts.load('800 32px "Montserrat"'),
+          document.fonts.load('24px "Material Symbols Outlined"'),
+          document.fonts.load('900 16px "Font Awesome 6 Free"'),
+          document.fonts.load('400 16px "Font Awesome 6 Brands"')
+        ];
+        await Promise.allSettled(fontChecks);
+        await document.fonts.ready;
+      } catch (err) {
+        console.warn("Font preloader info:", err);
+      }
+    }
+
     async function initSite() {
-      const minDisplayTime = new Promise(resolve => setTimeout(resolve, 800));
-      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-      const windowLoaded = new Promise(resolve => {
+      const minDisplayDelay = new Promise(resolve => setTimeout(resolve, 850));
+
+      const coreImages = [
+        "https://i.ibb.co/jkcDQJHZ/Official-Logo.png",
+        "https://i.ibb.co/qY66ZtvN/port.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4d/DaVinci_Resolve_Studio.png",
+        "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg"
+      ];
+
+      const coreImagePromise = Promise.allSettled(coreImages.map(preloadSingleImage));
+      const fontAndIconPromise = preloadAllFontsAndIcons();
+      
+      const projectsPromise = loadProjects().then(projects => {
+        const projectImgs = [];
+        if (projects && projects.length) {
+          projects.forEach(p => {
+            if (p.images && p.images.length) projectImgs.push(p.images[0]);
+            if (p.tools) {
+              p.tools.forEach(t => { if (t.icon) projectImgs.push(t.icon); });
+            }
+          });
+        }
+        return Promise.allSettled(projectImgs.map(preloadSingleImage));
+      });
+
+      const pageLoadPromise = new Promise(resolve => {
         if (document.readyState === 'complete') resolve();
         else window.addEventListener('load', resolve, { once: true });
       });
-      const projectsLoaded = loadProjects();
 
-      // Wait for core assets & minimum display time
-      await Promise.allSettled([minDisplayTime, fontsReady, windowLoaded, projectsLoaded]);
+      // Wait until fonts, Material 3 icons, images, DOM ready, and min display time complete
+      await Promise.allSettled([
+        minDisplayDelay,
+        coreImagePromise,
+        fontAndIconPromise,
+        projectsPromise,
+        pageLoadPromise
+      ]);
+
+      // Wait 2 paint cycles to ensure browser GPU composites icons and font glyphs onto DOM behind loader
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
       const preloader = document.getElementById('preloader');
       if (preloader) {
@@ -2011,14 +2111,14 @@
       }
     }
 
-    // Safety fallback in case network delays exceed 3.5s
+    // Safety fallback
     setTimeout(() => {
       const preloader = document.getElementById('preloader');
       if (preloader && !preloader.classList.contains('loaded')) {
         preloader.classList.add('loaded');
         setTimeout(() => { preloader.style.display = 'none'; }, 750);
       }
-    }, 3500);
+    }, 4000);
 
     // Launch Preloader & Asset Orchestrator
     initSite();
