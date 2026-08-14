@@ -8,10 +8,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.ibb.co/WWM2GP1Q/v-c-logo-ANEHHHHH.png" />
 
-  <!-- Pro & Creative Fonts -->
+  <!-- Professional Typography (Montserrat, Inter, Lato, Playfair Editorial Serif, Courier Prime Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -20,9 +20,11 @@
        CSS VARIABLES & THEME TOKENS
        ========================================================== */
     :root {
-      --font-main: 'Sora', sans-serif;
-      --font-display: 'Syne', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-body-alt: 'Lato', sans-serif;
+      --font-mono: 'Courier Prime', monospace;
       
       --cyan: #00f2fe;
       --cyan-glow: rgba(0, 242, 254, 0.45);
@@ -40,26 +42,26 @@
 
     [data-theme="dark"] {
       --bg: #05060a;
-      --bg-surface: rgba(15, 18, 28, 0.8);
-      --bg-card: rgba(18, 22, 34, 0.88);
+      --bg-surface: rgba(15, 18, 28, 0.82);
+      --bg-card: rgba(18, 22, 34, 0.9);
       --border: rgba(0, 242, 254, 0.18);
       --border-highlight: rgba(0, 242, 254, 0.6);
       --text: #f5f7fc;
       --text-muted: #94a3b8;
-      --card-gradient: linear-gradient(145deg, rgba(20, 26, 42, 0.9), rgba(9, 12, 20, 0.97));
-      --nav-bg: rgba(7, 8, 13, 0.92);
+      --card-gradient: linear-gradient(145deg, rgba(20, 26, 42, 0.92), rgba(9, 12, 20, 0.98));
+      --nav-bg: rgba(7, 8, 13, 0.94);
     }
 
     [data-theme="light"] {
       --bg: #f8fafc;
-      --bg-surface: rgba(255, 255, 255, 0.9);
-      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-surface: rgba(255, 255, 255, 0.92);
+      --bg-card: rgba(255, 255, 255, 0.96);
       --border: rgba(0, 150, 214, 0.22);
       --border-highlight: rgba(0, 150, 214, 0.75);
       --text: #090d16;
       --text-muted: #475569;
       --card-gradient: linear-gradient(145deg, #ffffff, #f1f5f9);
-      --nav-bg: rgba(248, 250, 252, 0.92);
+      --nav-bg: rgba(248, 250, 252, 0.94);
       --cyan-glow: rgba(0, 150, 214, 0.28);
     }
 
@@ -74,6 +76,7 @@
 
     html, body {
       height: 100%;
+      height: 100dvh;
       overflow: hidden;
       font-family: var(--font-main);
       -webkit-font-smoothing: antialiased;
@@ -146,6 +149,7 @@
       position: relative;
       width: 100vw;
       height: 100vh;
+      height: 100dvh;
       transform-style: preserve-3d;
       z-index: 2;
     }
@@ -155,6 +159,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100vh;
+      height: 100dvh;
       overflow: hidden;
       opacity: 0;
       pointer-events: none;
@@ -179,6 +184,7 @@
     .inner-section {
       width: 100%;
       height: 100vh;
+      height: 100dvh;
       box-sizing: border-box;
       padding: 85px 0 25px 0;
       display: flex;
@@ -245,11 +251,13 @@
     .nav-logo-wrap { width: 44px; height: 44px; cursor: pointer; }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-link {
-      font-size: 0.95rem;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-muted);
       transition: var(--transition);
       cursor: pointer;
+      letter-spacing: 0.3px;
     }
     .nav-link:hover, .nav-link.active {
       color: var(--cyan);
@@ -293,14 +301,14 @@
     .menu-toggle-btn.open span:nth-child(2) { opacity: 0; }
     .menu-toggle-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Desktop Page Navigation Arrows */
+    /* Page Navigation Floating Arrows (Universal) */
     .desktop-nav-arrows {
       position: fixed;
       bottom: 25px;
       right: 25px;
       display: flex;
       gap: 12px;
-      z-index: 101;
+      z-index: 105;
     }
     .nav-arrow {
       width: 48px; height: 48px;
@@ -310,8 +318,9 @@
       color: var(--cyan);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
       transition: var(--transition);
+      backdrop-filter: blur(10px);
     }
     .nav-arrow:hover {
       transform: translateY(-3px) scale(1.05);
@@ -327,14 +336,15 @@
       padding: 12px 24px;
       border-radius: 50px;
       font-weight: 700;
-      font-family: var(--font-main);
-      font-size: 0.92rem;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
       cursor: pointer;
       transition: var(--transition);
       border: none;
       text-align: center;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
+      letter-spacing: 0.3px;
     }
     .btn-highlight {
       background: linear-gradient(135deg, var(--cyan), #00b4d8);
@@ -380,12 +390,13 @@
       color: var(--cyan);
       font-size: 0.8rem;
       font-weight: 700;
+      font-family: var(--font-mono);
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 14px;
     }
     .hero-slogan-main {
-      font-family: var(--font-display);
+      font-family: var(--font-heading);
       font-size: clamp(2rem, 4.5vw, 3.8rem);
       font-weight: 800;
       line-height: 1.15;
@@ -393,6 +404,11 @@
       max-width: 800px;
       margin: 0 auto;
       color: #ffffff;
+    }
+    .hero-slogan-main .italic-accent {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 600;
     }
     .text-gradient {
       background: linear-gradient(135deg, var(--cyan) 0%, #00b4d8 50%, var(--magenta) 100%);
@@ -405,6 +421,7 @@
       color: var(--text-muted);
       max-width: 620px;
       font-weight: 400;
+      font-family: var(--font-body-alt);
     }
     .hero-btn-group {
       display: flex; align-items: center; justify-content: center;
@@ -436,7 +453,7 @@
       color: var(--text-muted);
       pointer-events: none;
       letter-spacing: 1px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
     .slide-thumb {
       width: 50px; height: 50px;
@@ -496,11 +513,11 @@
       padding: 10px 14px;
       text-align: left;
     }
-    .about-image-badge strong { display: block; font-size: 0.98rem; color: var(--cyan); }
-    .about-image-badge span { font-size: 0.8rem; color: var(--text-muted); }
+    .about-image-badge strong { display: block; font-size: 0.98rem; font-family: var(--font-heading); color: var(--cyan); }
+    .about-image-badge span { font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); }
 
-    .about-bio h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 700; margin-bottom: 2px; }
-    .about-role-sub { font-size: 0.96rem; color: var(--magenta); font-weight: 700; margin-bottom: 14px; display: block; }
+    .about-bio h2 { font-family: var(--font-heading); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; }
+    .about-role-sub { font-size: 0.96rem; font-family: var(--font-body-alt); color: var(--magenta); font-weight: 700; margin-bottom: 14px; display: block; }
     
     .about-bio-card {
       background: var(--card-gradient);
@@ -509,7 +526,7 @@
       padding: 16px 20px;
       margin-bottom: 16px;
     }
-    .about-bio-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+    .about-bio-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; font-family: var(--font-main); }
 
     .timeline-wrap { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
     .timeline-item {
@@ -530,8 +547,13 @@
       flex-shrink: 0;
       font-size: 19px;
     }
-    .timeline-content h4 { font-size: 0.92rem; font-weight: 700; color: var(--text); }
-    .timeline-content p { font-size: 0.82rem; color: var(--text-muted); }
+    .timeline-content h4 { font-size: 0.92rem; font-weight: 700; font-family: var(--font-heading); color: var(--text); }
+    .timeline-content p { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-body-alt); }
+
+    .google-search-action-btn {
+      margin-top: 18px;
+      transition: var(--transition);
+    }
 
     /* ==========================================================
        TOOLS & SERVICES SECTION
@@ -547,7 +569,7 @@
       display: block;
       margin-bottom: 6px;
     }
-    .section-heading { font-family: var(--font-display); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 700; }
+    .section-heading { font-family: var(--font-heading); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; }
 
     .tools-highlight-grid {
       display: grid;
@@ -580,8 +602,8 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
     .tool-logo-box img { width: 100%; height: 100%; object-fit: contain; }
-    .tool-hero-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-    .tool-hero-card p { font-size: 0.86rem; color: var(--text-muted); }
+    .tool-hero-card h3 { font-size: 1.2rem; font-weight: 700; font-family: var(--font-heading); margin-bottom: 6px; }
+    .tool-hero-card p { font-size: 0.86rem; color: var(--text-muted); font-family: var(--font-body-alt); }
 
     .services-grid {
       display: grid;
@@ -611,7 +633,7 @@
       transition: var(--transition);
     }
     .service-card:hover .service-icon-wrap { background: var(--cyan); color: #000; }
-    .service-card h3 { font-size: 1.18rem; font-weight: 700; margin-bottom: 10px; }
+    .service-card h3 { font-size: 1.18rem; font-weight: 700; font-family: var(--font-heading); margin-bottom: 10px; }
     .sub-services { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .sub-item { display: flex; align-items: center; gap: 9px; font-size: 0.88rem; color: var(--text-muted); }
     .sub-item .material-symbols-outlined { font-size: 17px; color: var(--magenta); }
@@ -628,7 +650,6 @@
       padding: 10px 0;
     }
 
-    /* Padding-top and padding-bottom prevent hover glow from cutting */
     .portfolio-horizontal-track {
       display: flex;
       gap: 24px;
@@ -646,18 +667,13 @@
     }
     .portfolio-horizontal-track::-webkit-scrollbar { display: none; }
 
-    /* Centering classes applied dynamically */
-    .portfolio-horizontal-track.center-items {
-      justify-content: center;
-    }
-    .portfolio-horizontal-track.scroll-items {
-      justify-content: flex-start;
-    }
+    .portfolio-horizontal-track.center-items { justify-content: center; }
+    .portfolio-horizontal-track.scroll-items { justify-content: flex-start; }
 
     .project-card {
       flex: 0 0 280px;
       width: 280px;
-      height: 280px; /* Exact 1:1 Aspect Ratio */
+      height: 280px;
       aspect-ratio: 1 / 1;
       background: var(--card-gradient);
       border: 1px solid var(--border);
@@ -681,9 +697,7 @@
       display: block;
       transition: transform 0.5s ease;
     }
-    .project-card:hover img.thumb-img {
-      transform: scale(1.08);
-    }
+    .project-card:hover img.thumb-img { transform: scale(1.08); }
 
     .project-media-count {
       position: absolute;
@@ -695,12 +709,12 @@
       border-radius: 30px;
       font-size: 0.75rem;
       font-weight: 700;
+      font-family: var(--font-mono);
       display: flex; align-items: center; gap: 4px;
       z-index: 2;
       backdrop-filter: blur(8px);
     }
 
-    /* Mobile Title on Card */
     .project-mobile-title {
       display: none;
       position: absolute;
@@ -709,11 +723,11 @@
       padding: 24px 14px 12px 14px;
       font-size: 0.92rem;
       font-weight: 700;
+      font-family: var(--font-heading);
       color: #fff;
       z-index: 2;
     }
 
-    /* Desktop Hover Mouse Tooltip (Text Bubble) */
     #portfolio-tooltip {
       position: fixed;
       pointer-events: none;
@@ -726,7 +740,7 @@
       padding: 7px 16px;
       font-size: 0.88rem;
       font-weight: 700;
-      font-family: var(--font-main);
+      font-family: var(--font-heading);
       color: #ffffff;
       box-shadow: 0 6px 22px rgba(0, 242, 254, 0.4);
       z-index: 100000;
@@ -734,7 +748,6 @@
       white-space: nowrap;
     }
 
-    /* Slider Bar for Carousel (shown only for 4+ items) */
     .portfolio-slider-wrap {
       width: min(320px, 80%);
       display: none;
@@ -766,7 +779,7 @@
     .portfolio-range-slider::-webkit-slider-thumb:hover { transform: scale(1.25); }
 
     /* ==========================================================
-       CONTACT SECTION (Button text wrapping & alignment fixed)
+       CONTACT SECTION
        ========================================================== */
     .contact-card-container {
       background: var(--card-gradient);
@@ -778,7 +791,7 @@
       gap: 34px;
       align-items: center;
     }
-    .contact-left-info h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; margin-bottom: 8px; }
+    .contact-left-info h2 { font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
     .contact-channels-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
     .channel-item {
       display: flex; align-items: center; gap: 14px;
@@ -790,8 +803,8 @@
     }
     .channel-item:hover { border-color: var(--cyan); transform: translateX(5px); }
     .channel-item i, .channel-item .material-symbols-outlined { font-size: 22px; color: var(--cyan); }
-    .channel-item div span { display: block; font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
-    .channel-item div strong { font-size: 0.94rem; color: var(--text); }
+    .channel-item div span { display: block; font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+    .channel-item div strong { font-size: 0.94rem; font-family: var(--font-main); color: var(--text); }
 
     .contact-right-actions { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; text-align: center; }
     .social-btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -811,23 +824,23 @@
     .social-icon-btn.wa:hover { color: #25d366; border-color: #25d366; }
     .social-icon-btn.mail:hover { color: var(--cyan); border-color: var(--cyan); }
 
-    /* Fixed Button: text remains cleanly within bounds */
+    /* Single Row WhatsApp Button */
     .whatsapp-full-cta {
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
       padding: 13px 20px;
-      font-size: 0.92rem;
-      white-space: normal;
-      line-height: 1.35;
-      text-align: center;
+      font-size: clamp(0.78rem, 3.2vw, 0.92rem);
+      white-space: nowrap;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
       box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .footer { padding: 20px 0 0 0; text-align: center; color: var(--text-muted); font-size: 0.82rem; }
+    .footer { padding: 20px 0 0 0; text-align: center; color: var(--text-muted); font-size: 0.82rem; font-family: var(--font-body-alt); }
 
     /* ==========================================================
        PROJECT MODAL & IMAGE CARDS GALLERY
@@ -855,22 +868,12 @@
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 242, 254, 0.2);
       transform: scale(0.92);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    /* Small / Slim Scrollbar for Project Modal */
-    .project-modal-dialog {
       scrollbar-width: thin;
       scrollbar-color: var(--cyan) transparent;
     }
-    .project-modal-dialog::-webkit-scrollbar {
-      width: 5px;
-    }
-    .project-modal-dialog::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .project-modal-dialog::-webkit-scrollbar-thumb {
-      background: var(--cyan);
-      border-radius: 10px;
-    }
+    .project-modal-dialog::-webkit-scrollbar { width: 5px; }
+    .project-modal-dialog::-webkit-scrollbar-track { background: transparent; }
+    .project-modal-dialog::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
 
     .project-modal-backdrop.open .project-modal-dialog { transform: scale(1); }
     .modal-close-btn {
@@ -891,6 +894,7 @@
     .project-tool-pill {
       display: inline-flex; align-items: center; gap: 5px;
       font-size: 0.76rem; font-weight: 600;
+      font-family: var(--font-mono);
       padding: 5px 12px;
       border-radius: 6px;
       background: rgba(0, 242, 254, 0.08);
@@ -899,7 +903,6 @@
     }
     .project-tool-pill img { width: 14px; height: 14px; }
 
-    /* Modal Gallery Cards */
     .modal-gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -943,6 +946,7 @@
       border-radius: 30px;
       font-size: 0.8rem;
       font-weight: 700;
+      font-family: var(--font-heading);
       display: flex; align-items: center; gap: 6px;
     }
 
@@ -988,10 +992,9 @@
     }
 
     /* ==========================================================
-       MOBILE RESPONSIVENESS & MOBILE-ONLY SCROLLING
+       MOBILE RESPONSIVENESS & FULL OVERHAUL FIXES
        ========================================================== */
     @media (max-width: 900px) {
-      .desktop-nav-arrows { display: none; }
       .menu-toggle-btn { display: flex; }
       .nav-links {
         position: fixed; top: 70px; left: 0; width: 100%;
@@ -1006,34 +1009,128 @@
       }
       .nav-links.open { transform: translateY(0); }
 
-      /* Mobile: subpages scroll, home stays fit */
+      /* Mobile Navigation Floating Arrows (Small, Sleek in Bottom Right) */
+      .desktop-nav-arrows {
+        display: flex;
+        bottom: 18px;
+        right: 18px;
+        gap: 8px;
+      }
+      .nav-arrow {
+        width: 38px;
+        height: 38px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      .nav-arrow span {
+        font-size: 18px;
+      }
+
+      /* Mobile Full Scroll Support for Content Pages */
+      .page {
+        height: 100vh;
+        height: 100dvh;
+      }
       .inner-section {
         height: 100vh;
+        height: 100dvh;
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
-        padding: 85px 0 50px 0;
-        justify-content: flex-start;
+        padding-top: 85px;
+        padding-bottom: 110px; /* Ample room so bottom elements & buttons are fully reachable */
+        display: block;
       }
 
+      /* Hero Page stays centered without scrolling */
       #hero .inner-section {
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        padding: 75px 0 20px 0;
+        padding-top: 75px;
+        padding-bottom: 25px;
+        overflow-y: hidden;
       }
 
-      .about-grid { grid-template-columns: 1fr; gap: 24px; }
-      .about-image-card { max-width: 290px; }
-      
-      .contact-card-container { grid-template-columns: 1fr; padding: 26px 20px; text-align: center; }
-      .channel-item { justify-content: center; text-align: left; }
+      /* About Me Page Mobile Beautification */
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+      }
+      .about-image-card {
+        max-width: 250px;
+        aspect-ratio: 1 / 1.15;
+        margin: 0 auto 8px auto;
+      }
+      .about-image-badge {
+        text-align: center;
+        padding: 8px 12px;
+      }
+      .about-bio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-bio h2 {
+        font-size: 1.65rem;
+      }
+      .about-role-sub {
+        font-size: 0.88rem;
+        margin-bottom: 12px;
+      }
+      .about-bio-card {
+        text-align: left;
+        padding: 14px 16px;
+        width: 100%;
+      }
+      .timeline-wrap {
+        width: 100%;
+        gap: 10px;
+      }
+      .timeline-item {
+        text-align: left;
+        padding: 10px 14px;
+      }
+      .google-search-action-btn {
+        width: 100%;
+        max-width: 290px;
+        margin-top: 18px;
+        margin-bottom: 15px;
+      }
 
+      /* Tools & Services Mobile Scroll Clearance */
+      .tools-highlight-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-bottom: 20px;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding-bottom: 20px;
+      }
+
+      /* Portfolio Mobile */
       .project-card { flex: 0 0 220px; width: 220px; height: 220px; }
       .project-mobile-title { display: block; }
       #portfolio-tooltip { display: none !important; }
 
+      /* Contact Mobile */
+      .contact-card-container {
+        grid-template-columns: 1fr;
+        padding: 26px 18px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .channel-item { justify-content: center; text-align: left; }
+      .whatsapp-full-cta {
+        font-size: 0.82rem;
+        padding: 12px 14px;
+        max-width: 100%;
+      }
+
       .project-modal-dialog {
-        padding: 22px 18px;
+        padding: 22px 16px;
         max-height: 90vh;
       }
       .modal-gallery-grid {
@@ -1079,10 +1176,10 @@
     </div>
   </header>
 
-  <!-- Desktop Floating Arrows -->
+  <!-- Floating Navigation Arrows (Visible on PC and Mobile Bottom Right) -->
   <div class="desktop-nav-arrows">
-    <button class="nav-arrow" id="prevPageBtn"><span class="material-symbols-outlined">arrow_back</span></button>
-    <button class="nav-arrow" id="nextPageBtn"><span class="material-symbols-outlined">arrow_forward</span></button>
+    <button class="nav-arrow" id="prevPageBtn" aria-label="Previous Page"><span class="material-symbols-outlined">arrow_back</span></button>
+    <button class="nav-arrow" id="nextPageBtn" aria-label="Next Page"><span class="material-symbols-outlined">arrow_forward</span></button>
   </div>
 
   <div class="pages-container" id="pages-container">
@@ -1101,7 +1198,7 @@
               <span class="material-symbols-outlined" style="font-size: 15px;">bolt</span> Velocity Studios <span class="material-symbols-outlined" style="font-size: 15px;">bolt</span>
             </div>
             <h1 class="hero-slogan-main">
-              Where Simple Ideas Become <span class="text-gradient">Iconic Brands.</span>
+              Where Simple Ideas Become <span class="italic-accent text-gradient">Iconic Brands.</span>
             </h1>
             <p class="hero-subtext">
               High-impact commercial photography, cinematic videography, and cutting-edge visual branding tailored to elevate your business.
@@ -1170,8 +1267,9 @@
                 </div>
               </div>
 
-              <button class="btn btn-highlight" style="margin-top: 16px;" onclick="window.open('https://www.google.com/search?q=who+is+iran+vivek', '_blank')">
-                <i class="fa-brands fa-google"></i> Search Google About Iran
+              <!-- Interactive Google Search Button -->
+              <button class="btn btn-highlight google-search-action-btn" id="googleSearchBtn" onclick="handleGoogleSearch(this)">
+                <i class="fa-brands fa-google"></i> <span id="googleBtnText">Search Google About Iran</span>
               </button>
 
             </div>
@@ -1325,7 +1423,7 @@
               </div>
             </div>
             <div class="contact-right-actions">
-              <h4 style="font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted);">
+              <h4 style="font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted);">
                 Follow My Channels
               </h4>
               <div class="social-btn-row">
@@ -1342,8 +1440,9 @@
                   <i class="fa-solid fa-envelope"></i>
                 </a>
               </div>
+              <!-- Strict Single-Row Button -->
               <a href="https://wa.me/94712068238" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp whatsapp-full-cta">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem; flex-shrink: 0;"></i>
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem; flex-shrink: 0;"></i>
                 <span>Contact on WhatsApp (+94 71 206 8238)</span>
               </a>
             </div>
@@ -1486,6 +1585,20 @@
     updateNavArrows();
 
     /* ==========================================================
+       INTERACTIVE GOOGLE SEARCH BUTTON (TOUCH TEXT CHANGE)
+       ========================================================== */
+    function handleGoogleSearch(btn) {
+      triggerHaptic([15, 30]);
+      const textSpan = document.getElementById('googleBtnText');
+      if (textSpan) {
+        textSpan.textContent = "Who Is Iran Vivek";
+      }
+      setTimeout(() => {
+        window.open('https://www.google.com/search?q=who+is+iran+vivek', '_blank');
+      }, 300);
+    }
+
+    /* ==========================================================
        SLIDE TO PORTFOLIO CTA
        ========================================================== */
     const slideCta = document.getElementById('slideCta');
@@ -1568,7 +1681,6 @@
       if (e.target === modalBackdrop) modalBackdrop.classList.remove('open');
     });
 
-    // Horizontal Scroll Slider Sync
     portfolioTrack.addEventListener('scroll', () => {
       const maxScroll = portfolioTrack.scrollWidth - portfolioTrack.clientWidth;
       if (maxScroll > 0) {
@@ -1602,9 +1714,6 @@
 
       window.projectsData = projects;
 
-      // Centering & Slider rules:
-      // If 1, 2, or 3 projects -> Center them and hide slider!
-      // If 4 or more projects -> Allow full horizontal scroll & show interactive slider!
       if (projects.length >= 4) {
         portfolioTrack.classList.remove('center-items');
         portfolioTrack.classList.add('scroll-items');
@@ -1628,7 +1737,6 @@
         `;
       }).join('');
 
-      // Desktop Hover Tooltip (Text Bubble) logic
       document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('mouseenter', (e) => {
           const idx = card.getAttribute('data-index');
@@ -1674,8 +1782,8 @@
       `).join('') || '';
 
       modalContent.innerHTML = `
-        <h2 style="font-size: 1.7rem; font-family: var(--font-display); color: var(--text); margin-bottom: 8px; padding-right: 40px;">${project.title}</h2>
-        <p style="color: var(--text-muted); font-size: 0.94rem; line-height: 1.65;">${project.description || ''}</p>
+        <h2 style="font-size: 1.7rem; font-family: var(--font-heading); color: var(--text); margin-bottom: 8px; padding-right: 40px;">${project.title}</h2>
+        <p style="color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; font-family: var(--font-main);">${project.description || ''}</p>
         <div class="project-tool-pills">${toolsHtml}</div>
         <div class="modal-gallery-grid">${galleryHtml}</div>
       `;
